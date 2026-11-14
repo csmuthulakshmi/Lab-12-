@@ -1,0 +1,16 @@
+# Heavy optional dependencies — install only when you need Crew/RAGAS features.
+# These are NOT required to run the API, chat, or RAG pipeline.
+#
+# Install with:
+#   uv pip install -r requirements-optional.txt --python .venv/bin/python
+# or:
+#   pip install -r requirements-optional.txt
+#
+# The app degrades gracefully if these are absent:
+#   - /crew/report endpoint returns a plain stub report
+#   - /eval/ragas endpoint returns mock baseline metrics (0.85–0.92 range)
+#   - pytest marks those test suites as skipped automatically
+
+crewai
+ragas
+datasets

@@ -1,0 +1,6 @@
+# GenAI Platform Plus — full dependency set.
+# For quick installs, use:
+#   requirements-core.txt    (fast — no ML training libs)
+#   requirements-optional.txt (heavy — crewai, ragas, datasets)
+-r requirements-core.txt
+-r requirements-optional.txt

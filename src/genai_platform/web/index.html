@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GenAI Platform Plus</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="app-container">
+    <!-- Left Sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <div class="app-title">
+          <span>⚡ GenAI Plus</span>
+          <span id="health-badge" class="badge badge-degraded">CHECKING...</span>
+        </div>
+        <button id="theme-toggle" class="btn-icon" title="Toggle theme">☀️</button>
+      </div>
+
+      <!-- Auth & Session -->
+      <div class="sidebar-section">
+        <div class="input-group">
+          <label class="input-label" for="api-key-input">API Key</label>
+          <input type="password" id="api-key-input" class="text-input" placeholder="Enter X-API-Key">
+        </div>
+        <button id="new-chat-btn" class="btn-primary">＋ New Conversation</button>
+      </div>
+
+      <!-- Document Management (Feature A) -->
+      <div class="sidebar-section">
+        <div class="section-title">Knowledge Base</div>
+        <div id="dropzone" class="dropzone">
+          <p>📄 Drag & drop or <b>browse</b></p>
+          <span>PDF, HTML, TXT, MD (Max 25MB)</span>
+          <input type="file" id="file-input" multiple style="display:none;" accept=".pdf,.html,.htm,.txt,.md">
+        </div>
+        <div id="upload-status" style="font-size:0.75rem; margin-top:6px; min-height:16px;"></div>
+      </div>
+
+      <!-- Document Inventory -->
+      <div class="sidebar-section" style="padding-bottom: 4px;">
+        <div class="section-title">Ingested Documents</div>
+      </div>
+      <div id="doc-list" class="doc-list-container">
+        <!-- Document items injected via JS -->
+      </div>
+    </aside>
+
+    <!-- Main Chat Workspace -->
+    <main class="main-chat">
+      <!-- Top Controls Bar -->
+      <header class="chat-controls">
+        <div class="mode-selector">
+          <button id="mode-chat" class="mode-btn active">Chat (RAG)</button>
+          <button id="mode-agent" class="mode-btn">ReAct Agent</button>
+        </div>
+
+        <div class="control-group">
+          <select id="source-filter" class="text-input" style="width: auto; padding: 4px 8px;">
+            <option value="">All Sources</option>
+          </select>
+
+          <label class="toggle-label" title="Enable Hybrid Dense + BM25 Search">
+            <input type="checkbox" id="hybrid-toggle" checked>
+            <span>Hybrid</span>
+          </label>
+
+          <label class="toggle-label" title="Enable Cross-Encoder Reranking">
+            <input type="checkbox" id="rerank-toggle" checked>
+            <span>Rerank</span>
+          </label>
+
+          <div style="display:flex; align-items:center; gap:6px;">
+            <span style="font-size:0.8rem; color:var(--text-muted);">k:</span>
+            <input type="range" id="k-slider" min="1" max="10" value="4" style="width:70px;">
+            <span id="k-value" style="font-size:0.8rem; min-width:14px;">4</span>
+          </div>
+        </div>
+      </header>
+
+      <!-- Message History Container -->
+      <div id="messages-container" class="messages-container">
+        <div class="message-card message-assistant">
+          <div class="message-header">
+            <span>Welcome to GenAI Platform Plus</span>
+          </div>
+          <div class="message-body">
+            Upload documents on the left, or ask a question directly. Switch to <b>ReAct Agent</b> mode for tool reasoning (AST calculator, Wikipedia, RAG).
+          </div>
+        </div>
+      </div>
+
+      <!-- Bottom Chat Input -->
+      <footer class="input-area">
+        <form id="chat-form" class="chat-input-form">
+          <textarea id="chat-input" class="chat-textarea" placeholder="Type your question or instruction... (Enter to send)" rows="1"></textarea>
+          <button type="submit" id="send-btn" class="btn-send">Send</button>
+        </form>
+      </footer>
+
+      <!-- Telemetry Strip -->
+      <div id="telemetry-footer" class="chat-footer">
+        Ready.
+      </div>
+    </main>
+
+    <!-- Sources Drawer Modal -->
+    <div id="drawer-overlay" class="modal-overlay">
+      <div class="drawer">
+        <div class="drawer-header">
+          <h3>Retrieved Passages</h3>
+          <button id="drawer-close" class="btn-icon" style="font-size:1.2rem;">✕</button>
+        </div>
+        <div id="drawer-content">
+          <!-- Populated dynamically -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,14 @@
+.venv/
+__pycache__/
+*.pyc
+.env
+.git
+.gitignore
+artifacts/*
+!artifacts/.gitkeep
+data/raw/*
+!data/raw/.gitkeep
+.pytest_cache/
+tests/
+loadtest/
+steps/
